@@ -29,10 +29,11 @@ model Post {
   price Int
   images String[]
   address String
+  city String
   bedroom Int
   bathroom Int
-  latitude String
-  longitude String
+  latitude Int
+  longitude Int
   type Type
   property Property
   createdAt DateTime @default(now())
@@ -62,7 +63,7 @@ model PostDetail {
   size Int
   school Int
   bus Int
-  resturant Int
+  restaurant Int
   post Post @relation(fields:[postId], references: [id])
   postId String @db.ObjectId @unique
 }
