@@ -1,4 +1,3 @@
-import { listData } from "../../lib/dummydata";
 import "./listPage.scss";
 import Filter from "../../components/filter/Filter"
 import Card from "../../components/card/Card"
@@ -8,7 +7,9 @@ import { Suspense } from "react";
 
 function ListPage() {
   const data = useLoaderData();
-  return <div className="listPage">
+
+  return (
+  <div className="listPage">
     <div className="listContainer">
       <div className="wrapper">
         <Filter/>
@@ -17,10 +18,12 @@ function ListPage() {
            resolve={data.postResponse}
            errorElement={<p>Error loading posts!</p>}
         >
-          {(postResponse) => postResponse.data.map((post) => (
-            <Card key={post.id} item={post} />
-          ))}
+        {(postResponse) => postResponse.data.map((post) => (
+          <Card key={post.id} item={post} />
+        ))}
+
         </Await>
+
         </Suspense>
       </div>
     </div>
@@ -30,11 +33,12 @@ function ListPage() {
            resolve={data.postResponse}
            errorElement={<p>Error loading posts!</p>}
         >
-          {(postResponse)  => <Map items={postResponse.data} />}
+        {(postResponse)  =>  <Map items={postResponse.data} />}
         </Await>
-        </Suspense>
+      </Suspense>
     </div>
-  </div>;
+  </div>
+  )
 }
 
 export default ListPage;

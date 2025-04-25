@@ -24,13 +24,13 @@ function NewPostPage() {
           title: inputs.title,
           price: parseInt(inputs.price),
           address: inputs.address,
-          city: inputs.city,
+          city: inputs.city.trim(),
           bedroom: parseInt(inputs.bedroom),
           bathroom: parseInt(inputs.bathroom),
           type: inputs.type,
           property: inputs.property,
-          latitude: inputs.latitude,
-          longitude: inputs.longitude,
+          latitude: parseFloat(inputs.latitude),
+          longitude: parseFloat(inputs.longitude),
           images: images
         },
         postDetail: {
