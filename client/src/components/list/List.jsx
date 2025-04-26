@@ -1,14 +1,14 @@
-import './list.scss'
-import Card from"../card/Card"
+import './list.scss';
+import Card from "../card/Card";
 
-function List({ posts }){
+function List({ posts, onMessage }) {
   return (
     <div className='list'>
-      {posts.map(item=>(
-        <Card key={item.id} item={item} />
+      {posts.map(item => (
+        <Card key={item.id} item={item} onMessage={onMessage} />
       ))}
     </div>
-  )
+  );
 }
 
-export default List
+export default List;

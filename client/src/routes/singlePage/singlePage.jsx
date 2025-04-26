@@ -5,11 +5,12 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify"
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext"
-import apiRequest from "../../lib/apiRequest.js"
+import apiRequest from "../../lib/apiRequest.js";
 
 function SinglePage() {
+  
   const post = useLoaderData();
-  const [saved, setSaved] = useState(!post.isSaved)
+  const [saved, setSaved] = useState(!post.isSaved);
   const { currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function SinglePage() {
                 <div className="price">$ {post.price}</div>
               </div>
               <div className="user">
-                <img src={post.user.avatar} alt="" />
+                <img src={post.user.avatar || "/noavatar.jpg"} alt="" />
                 <span>{post.user.username}</span>
               </div>
             </div>

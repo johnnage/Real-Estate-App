@@ -4,11 +4,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import apiRequest from "../../lib/apiRequest.js";
+import { useNotificationStore } from "../../lib/notificationStore.js";
+
 function Navbar() {
   const [open, setOpen] = useState(false);
 
   const { currentUser, updateUser } = useContext(AuthContext)
   const navigate = useNavigate();
+
+  const fetch = useNotificationStore((state) => state.fetch);c
+  const number = useNotificationStore((state) => state.number);
+
+
+  if(currentUser) {
+    fetch();
+  }
+
+
   const handleLogout = async () => {
     try {
       const res = await apiRequest.post("/auth/logout");
@@ -40,7 +52,7 @@ function Navbar() {
             />
             <span>{currentUser.username}</span>
             <Link to="/profile" className="profile">
-              <div className="notification">3</div>
+              {number > 0 && <div className="notification">{number}</div>}
               <span>Profile</span>
             </Link>
           </div>
