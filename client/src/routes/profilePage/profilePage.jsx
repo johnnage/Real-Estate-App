@@ -22,6 +22,19 @@ function ProfilePage() {
       console.log(err);
     }
   };
+  
+  const handleStartChat = async () => {
+      try {
+        const res = await apiRequest.post("/chats", {
+          receiverId: receiverId,
+        });
+        console.log("New chat created:", res.data);
+        // Optionally, you can update your UI to reflect the new chat
+      } catch (err) {
+        console.log("Error creating chat:", err);
+      }
+    };
+    
   return (
     <div className="profilePage">
       <div className="details">
@@ -43,6 +56,7 @@ function ProfilePage() {
             <span>
               E-mail: <b>{currentUser.email}</b>
             </span>
+            <button onClick={() => handleStartChat(currentUser.id)}>Start Chat</button>
             <button onClick={handleLogout}>Logout</button>
           </div>
           <div className="title">
@@ -79,7 +93,7 @@ function ProfilePage() {
               resolve={data.chatResponse}
               errorElement={<p>Error loading chats!</p>}
             >
-              {(chatResponse) => <Chat chats={chatResponse.data}/>}
+              {(chatResponse) => <Chat chats={chatResponse.data} />}
             </Await>
           </Suspense>
         </div>
@@ -88,4 +102,4 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage;,c
+export default ProfilePage;

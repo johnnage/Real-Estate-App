@@ -7,7 +7,7 @@ export const getPosts = async (req, res) => {
     try {
       const posts = await prisma.post.findMany({
         where: {
-          city: query.city.trim() || undefined,
+          city: query.city || undefined,
           type: query.type || undefined,
           property: query.property || undefined,
           bedroom: parseInt(query.bedroom) || undefined,

@@ -34,38 +34,60 @@ export const getChats = async (req, res) => {
 export const getChat = async (req, res) => {
     const tokenUserId = req.userId;
     try {
-        const chat = await prisma.chat.findUnique({
-            where: {
-                id: req.params.id,
-                userIDs: {
-                    hasSome: [tokenUserId],
-                },
+      const chat = await prisma.chat.findUnique({
+        where: {
+          id: req.params.id,
+          userIDs: {
+            hasSome: [tokenUserId],
+          },
+        },
+        include: {
+          message: {
+            orderBy: {
+              createdAt: "asc",
             },
-            include: {
-                message: {
-                    orderBy: {
-                        createdAt: "asc",
-                    }
-                }
-            }
-        });
-        await prisma.chat.update({
-            where: {
-                id: req.params.id
-            },
-            data: {
-                seenBy: {
-                    push: [tokenUserId]
-                },
-            },
-        });
-        res.status(200).json(chat);
+          },
+        },
+      });
+  
+      if (!chat) {
+        return res.status(404).json({ message: "Chat not found" });
+      }
+  
+      // Find receiver user
+      const receiverId = chat.userIDs.find((id) => id !== tokenUserId);
+      const receiver = await prisma.user.findUnique({
+        where: {
+          id: receiverId,
+        },
+        select: {
+          id: true,
+          username: true,
+          avatar: true,
+        },
+      });
+  
+      chat.receiver = receiver; // Add receiver to chat object
+  
+      // Mark as seen
+      await prisma.chat.update({
+        where: {
+          id: req.params.id,
+        },
+        data: {
+          seenBy: {
+            push: tokenUserId,
+          },
+        },
+      });
+  
+      res.status(200).json(chat);
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Failed to get chat!" })
+      console.log(error);
+      res.status(500).json({ message: "Failed to get chat!" });
     }
-};
-
+  };
+  
 export const addChat = async (req, res) => {
     const tokenUserId = req.userId;
     try {
@@ -80,26 +102,43 @@ export const addChat = async (req, res) => {
         res.status(500).json({ message: "Failed to add chat!" })
     }
 };
-export const readChat = async (req, res) => {
-    const tokenUserId = req.userId;
 
-    try {
-        const chat = await prisma.chat.update({
-            where: {
-                id: req.params.id,
-                userIDs: {
-                    hasSome: [tokenUserId]
-                },
-            },
-            data: {
-                seenBy: {
-                    push: [tokenUserId]
-                }
-            }
-        })
-        res.status(200).json(chat);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Failed to read chat!" })
-    }
+export const readChat = async (req, res) => {
+  const tokenUserId = req.userId;
+  try {
+      const chat = await prisma.chat.findFirst({
+          where: {
+              id: req.params.id,
+              userIDs: {
+                  hasSome: [tokenUserId]
+              }
+          }
+      });
+      
+      if (!chat) {
+          return res.status(404).json({ message: "Chat not found!" });
+      }
+
+      // Make sure seenBy is always an array (fallback to an empty array if null or undefined)
+      const seenBy = Array.isArray(chat.seenBy) ? chat.seenBy : [];
+      
+      // If user has not already seen the chat, mark it as seen
+      if (!seenBy.includes(tokenUserId)) {
+          const updatedChat = await prisma.chat.update({
+              where: { id: req.params.id },
+              data: {
+                  seenBy: {
+                      push: tokenUserId
+                  }
+              }
+          });
+          return res.status(200).json(updatedChat);
+      }
+
+      // If already seen, just return the chat as is
+      return res.status(200).json(chat);
+  } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Failed to read chat!" })
+  }
 };

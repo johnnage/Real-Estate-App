@@ -3,7 +3,7 @@ import { Server } from "socket.io";
 const io = new Server({
     cors:{
         origin: "https://bug-free-invention-9r4q5p4xjrrh9rrq-5173.app.github.dev"
-    }
+    },
 });
 
 let onlineUser = [];
@@ -11,6 +11,7 @@ let onlineUser = [];
 
 const addUser = (userId, socketId) => {
     const userExists = onlineUser.find(user => user.userId === userId);
+    console.log("New user")
     if(!userExists) {
         onlineUser.push({ userId, socketId })
     }
@@ -30,7 +31,10 @@ io.on("connection", (socket) => {
     });
     socket.on("sendMessage", ({ receiverId, data }) => {
         const receiver = getUser(receiverId);
-        io.to(receiver.socketId).emit("getMessage", data);
+        console.log("send message to", receiverId)
+        if(receiver){
+            io.to(receiver.socketId).emit("getMessage", data);
+        }
     })
     socket.on("disconnect", () => {
         removeUser(socket.id);

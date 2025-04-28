@@ -40,7 +40,7 @@ function Chat({ chats }) {
     if (!text) return;
     try {
       const res = await apiRequest.post("/messages/" + chat.id, { text });
-      setChat((prev) => ({ ...prev, messages: [...prev.messages, res.data] }));
+      setChat((prev) => ({ ...prev, message: [...prev.message, res.data] }));
       e.target.reset();
       socket.emit("sendMessage", {
         receiverId: chat.receiver.id,
@@ -63,7 +63,7 @@ function Chat({ chats }) {
     if (chat && socket) {
       socket.on("getMessage", (data) => {
         if (chat.id === data.chatId) {
-          setChat((prev) => ({ ...prev, messages: [...prev.messages, data] }));
+          setChat((prev) => ({ ...prev, message: [...prev.message, data] }));
           read();
         }
       });
@@ -90,7 +90,7 @@ function Chat({ chats }) {
             onClick={() => handleOpenChat(c.id, c.receiver)}
           >
             <img src={c.receiver.avatar || "/noavatar.jpg"} alt="" />
-            <span>{c.receiver.username}</span>
+            <span>{c.receiver.username  || "unknown"}</span>
             <p>{c.lastMessage}</p>
           </div>
         ))}
@@ -100,14 +100,14 @@ function Chat({ chats }) {
           <div className="top">
             <div className="user">
               <img src={chat.receiver.avatar || "noavatar.jpg"} alt="" />
-              {chat.receiver.username}
+              {chat.receiver.username || "unknown"}
             </div>
             <span className="close" onClick={() => setChat(null)}>
               X
             </span>
           </div>
           <div className="center">
-            {chat.messages.map((message) => (
+            {chat.message.map((message) => (
               <div
                 className="chatMessage"
                 style={{
