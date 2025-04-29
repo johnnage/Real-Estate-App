@@ -15,13 +15,14 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 300px;
 }
 
 .login .formContainer form input {
   padding: 20px;
   border: 1px solid gray;
   border-radius: 5px;
-  width: 300px;
+  width: 100%;
 }
 
 .login .formContainer form button {
@@ -32,6 +33,7 @@
   color: white;
   font-weight: bold;
   cursor: pointer;
+  width: 100%;
 }
 
 .login .formContainer form button:disabled {
@@ -64,32 +66,35 @@
   object-fit: cover;
 }
 
-/* Responsive styles (normally from @include md and @include sm) */
-
+/* Tablet and below */
 @media (max-width: 768px) {
-  .login .imgContainer {
-    display: none;
-  }
-}
-
-@media (max-width: 640px) {
   .login {
     flex-direction: column;
-    padding: 22px;
-    padding-left: 8px;
+  }
+
+  .login .imgContainer {
+    display: none;
   }
 
   .login .formContainer {
     width: 100%;
+    padding: 20px;
   }
 
   .login .formContainer form {
     width: 100%;
+    max-width: 400px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 640px) {
+  .login .formContainer form {
     align-items: center;
+    gap: 16px;
   }
 
-  .login .formContainer form input,
-  .login .formContainer form button {
-    width: 100%;
+  .login .formContainer form a {
+    text-align: center;
   }
 }

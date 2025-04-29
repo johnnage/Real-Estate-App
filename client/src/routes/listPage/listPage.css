@@ -1,7 +1,7 @@
-
 .listPage {
   display: flex;
   height: 100%;
+  flex-direction: row;
 }
 
 .listPage .listContainer {
@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   gap: 50px;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-bottom: 50px;
 }
 
@@ -25,9 +25,33 @@
   background-color: #fcf5f3;
 }
 
-/* Responsive rule manually replacing @include md */
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .listPage .listContainer .wrapper {
+    padding-right: 30px;
+    gap: 40px;
+  }
+}
+
 @media (max-width: 768px) {
+  .listPage {
+    flex-direction: column;
+  }
+
   .listPage .mapContainer {
     display: none;
+  }
+
+  .listPage .listContainer {
+    flex: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .listPage .listContainer .wrapper {
+    padding: 20px;
+    height: auto;
+    overflow-y: visible;
+    gap: 30px;
   }
 }

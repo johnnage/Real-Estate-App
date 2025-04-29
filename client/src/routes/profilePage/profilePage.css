@@ -5,12 +5,12 @@
 
 .profilePage .details {
   flex: 3;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-bottom: 50px;
 }
 
 .profilePage .details .wrapper {
-  padding-right: 50px;
+  padding: 0 50px 0 0;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -24,6 +24,7 @@
 
 .profilePage .details .wrapper .title h1 {
   font-weight: 300;
+  font-size: 28px;
 }
 
 .profilePage .details .wrapper .title button {
@@ -33,6 +34,7 @@
   border: none;
   border-radius: 5px;
   font-weight: 500;
+  font-size: 16px;
 }
 
 .profilePage .details .wrapper .info {
@@ -73,24 +75,65 @@
 }
 
 .profilePage .chatContainer .wrapper {
-  padding: 0px 20px;
+  padding: 0 20px;
   height: 100%;
 }
 
 /* Responsive styles */
 
-/* Medium screens (max-width: 768px) */
+/* Tablet and below */
 @media (max-width: 768px) {
   .profilePage {
     flex-direction: column;
-    overflow: scroll;
+    height: auto;
+    overflow-x: hidden;
   }
-  .profilePage .details {
-    flex: none;
-    height: max-content;
-  }
+
+  .profilePage .details,
   .profilePage .chatContainer {
     flex: none;
-    height: max-content;
+    width: 100%;
+    height: auto;
+  }
+
+  .profilePage .details .wrapper {
+    padding: 20px;
+    gap: 30px;
+  }
+
+  .profilePage .details .wrapper .title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .profilePage .details .wrapper .title h1 {
+    font-size: 24px;
+  }
+
+  .profilePage .details .wrapper .title button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .profilePage .details .wrapper .info span {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .profilePage .details .wrapper .info button {
+    width: 100%;
+  }
+}
+
+/* Small screens (phones < 480px) */
+@media (max-width: 480px) {
+  .profilePage .details .wrapper .title h1 {
+    font-size: 22px;
+  }
+
+  .profilePage .details .wrapper {
+    padding: 10px;
   }
 }
