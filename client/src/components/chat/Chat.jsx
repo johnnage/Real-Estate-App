@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import "./chat.scss";
+import "./chat.css";
 import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
 import { format } from "timeago.js";
@@ -40,7 +40,7 @@ function Chat({ chats }) {
     if (!text) return;
     try {
       const res = await apiRequest.post("/messages/" + chat.id, { text });
-      setChat((prev) => ({ ...prev, message: [...prev.message, res.data] }));
+      setChat((prev) => ({ ...prev, messages : [...prev.messages, res.data] }));
       e.target.reset();
       socket.emit("sendMessage", {
         receiverId: chat.receiver.id,
@@ -63,7 +63,7 @@ function Chat({ chats }) {
     if (chat && socket) {
       socket.on("getMessage", (data) => {
         if (chat.id === data.chatId) {
-          setChat((prev) => ({ ...prev, message: [...prev.message, data] }));
+          setChat((prev) => ({ ...prev, messages: [...prev.messages, data] }));
           read();
         }
       });
@@ -107,7 +107,7 @@ function Chat({ chats }) {
             </span>
           </div>
           <div className="center">
-            {chat.message.map((message) => (
+            {chat.messages.map((message) => (
               <div
                 className="chatMessage"
                 style={{

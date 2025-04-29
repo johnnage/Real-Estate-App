@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./newPostPage.scss";
+import "./newPostPage.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import apiRequest from "../../lib/apiRequest.js";
@@ -93,7 +93,7 @@ function NewPostPage() {
               <label htmlFor="longitude">Longitude</label>
               <input id="longitude" name="longitude" type="string" />
             </div>
-            <div className="item">
+            <div className="item custom-select">
               <label htmlFor="type">Type</label>
               <select name="type">
                 <option value="rent" defaultChecked>
@@ -101,8 +101,9 @@ function NewPostPage() {
                 </option>
                 <option value="buy">Buy</option>
               </select>
+              <span className="arrow"></span>
             </div>
-            <div className="item">
+            <div className="item custom-select">
               <label htmlFor="type">Property</label>
               <select name="property">
                 <option value="apartment">Apartment</option>
@@ -110,21 +111,24 @@ function NewPostPage() {
                 <option value="condo">Condo</option>
                 <option value="land">Land</option>
               </select>
+              <span className="arrow"></span>
             </div>
-            <div className="item">
+            <div className="item custom-select">
               <label htmlFor="utilities">Utilities Policy</label>
               <select name="utilities">
                 <option value="owner">Owner is responsible</option>
                 <option value="tenant">Tenant is responsible</option>
                 <option value="shared">Shared</option>
               </select>
+              <span className="arrow"></span>
             </div>
-            <div className="item">
+            <div className="item custom-select">
               <label htmlFor="pet">Pet Policy</label>
               <select name="pet">
                 <option value="allowed">Allowed</option>
                 <option value="not-allowed">Not Allowed</option>
               </select>
+              <span className="arrow"></span>
             </div>
             <div className="item">
               <label htmlFor="income">Income Policy</label>

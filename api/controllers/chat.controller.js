@@ -5,6 +5,7 @@ export const getChats = async (req, res) => {
     try {
         const chats = await prisma.chat.findMany({
             where: {
+              
                 userIDs: {
                     hasSome: [tokenUserId]
                 },
@@ -42,7 +43,7 @@ export const getChat = async (req, res) => {
           },
         },
         include: {
-          message: {
+          messages: {
             orderBy: {
               createdAt: "asc",
             },

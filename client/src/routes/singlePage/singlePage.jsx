@@ -1,4 +1,4 @@
-import "./singlePage.scss";
+import "./singlePage.css";
 import Slider from "../../components/slider/Slider";
 import Map from "../../components/map/Map";
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -14,6 +14,19 @@ function SinglePage() {
   const { currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
+
+  const handleStartChat = async ({ receiverId }) => {
+    try {
+      const res = await apiRequest.post("/chats", {
+        receiverId: receiverId,
+      });
+      console.log("New chat created:", res.data);
+      // Optionally, you can update your UI to reflect the new chat
+    } catch (err) {
+      console.log("Error creating chat:", err);
+    }
+  };
+  
 
   const handleSave = async () => {
     if(!currentUser){
@@ -128,18 +141,22 @@ function SinglePage() {
           <div className="mapContainer">
             <Map items={[post]} />
           </div>
-          <div className="buttons">
-            <button>
-              <img src="/chat.png" alt="" />
-              Send a Message
-            </button>
-            <button onClick={handleSave} style={{
-              backgroundColor: saved ? "#fece51" : "white",
-            }}>
-              <img src="/save.png" alt="" />
-                {saved ? "Place Saved" : "Save the Place"}
-            </button>
-          </div>
+          {
+            post.userId !== currentUser.id && (
+              <div className="buttons">
+              <button onClick={() => handleStartChat({receiverId: post.userId})}>
+                <img src="/chat.png" alt="" />
+                Send a Message
+              </button>
+              <button onClick={handleSave} style={{
+                backgroundColor: saved ? "#fece51" : "white",
+              }}>
+                <img src="/save.png" alt="" />
+                  {saved ? "Place Saved" : "Save the Place"}
+              </button>
+            </div>
+            )
+          }
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import "./profileUpdatePage.scss";
+import "./profileUpdatePage.css";
 import { useContext, useState } from "react";
 import { useNavigate, Navigate  } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest.js";

@@ -1,4 +1,4 @@
-import './list.scss';
+import './list.css';
 import Card from "../card/Card";
 
 function List({ posts, onMessage }) {

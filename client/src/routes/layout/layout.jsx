@@ -1,4 +1,4 @@
-import "./layout.scss";
+import "./layout.css";
 import Navbar from "../../components/navbar/Navbar.jsx"
 import { Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";

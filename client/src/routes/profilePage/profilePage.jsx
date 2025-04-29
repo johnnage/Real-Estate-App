@@ -1,6 +1,6 @@
 import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
-import "./profilePage.scss";
+import "./profilePage.css";
 import apiRequest from "../../lib/apiRequest";
 import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
 import { Suspense, useContext } from "react";
@@ -23,18 +23,6 @@ function ProfilePage() {
     }
   };
   
-  const handleStartChat = async () => {
-      try {
-        const res = await apiRequest.post("/chats", {
-          receiverId: receiverId,
-        });
-        console.log("New chat created:", res.data);
-        // Optionally, you can update your UI to reflect the new chat
-      } catch (err) {
-        console.log("Error creating chat:", err);
-      }
-    };
-    
   return (
     <div className="profilePage">
       <div className="details">
@@ -56,7 +44,6 @@ function ProfilePage() {
             <span>
               E-mail: <b>{currentUser.email}</b>
             </span>
-            <button onClick={() => handleStartChat(currentUser.id)}>Start Chat</button>
             <button onClick={handleLogout}>Logout</button>
           </div>
           <div className="title">

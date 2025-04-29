@@ -1,0 +1,39 @@
+.layout {
+  min-height: 100vh;
+  max-width: 1366px;
+  margin: 0 auto 0 0; /* Top: 0, Right: auto, Bottom: 0, Left: 0 */
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Content inside layout */
+.layout .content {
+  flex: 1; /* Take available space */
+  min-height: 0; /* Prevent flexbox issues */
+  width: 100%;
+}
+
+/* Large screens */
+@media (max-width: 1280px) {
+  .layout {
+    max-width: 1280px;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 768px) {
+  .layout {
+    max-width: 100%; /* Instead of 768px fixed */
+    padding: 0 16px; /* Slightly smaller padding on smaller screens */
+  }
+}
+
+/* Small screens */
+@media (max-width: 640px) {
+  .layout {
+    max-width: 100%;
+    padding: 0 12px; /* Even smaller padding for mobile */
+  }
+}

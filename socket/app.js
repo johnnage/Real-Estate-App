@@ -11,7 +11,6 @@ let onlineUser = [];
 
 const addUser = (userId, socketId) => {
     const userExists = onlineUser.find(user => user.userId === userId);
-    console.log("New user")
     if(!userExists) {
         onlineUser.push({ userId, socketId })
     }
