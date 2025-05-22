@@ -46,17 +46,17 @@ function Navbar() {
       <div className="right">
         {currentUser ? (
           <div className="user">
-            <img
-              src={currentUser.avatar || "/noavatar.jpg"}
-              alt=""
-            />
-            <span>{currentUser.username}</span>
+            <Link className="linkImage" to="/profile">
+              <img src={currentUser.avatar || "/noavatar.jpg"} alt="profile image" />
+              <span>{currentUser.username}</span>
+            </Link>
             <Link to="/profile" className="profile">
               {number > 0 && <div className="notification">{number}</div>}
               <span>Profile</span>
             </Link>
-          </div>
-        ) : (
+          </div> 
+          )
+          : (
           <>
             <a href="/login">Sign in</a>
             <a href="/register" className="register">

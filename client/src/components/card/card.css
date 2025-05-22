@@ -1,4 +1,3 @@
-
 .card {
   display: flex;
   gap: 20px;
@@ -98,9 +97,17 @@
   background-color: lightgray;
 }
 
-/* Responsive rule manually replacing @include md */
+/* Responsive rule for smaller screens */
 @media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+  }
+
   .card .imageContainer {
     display: none;
+  }
+
+  .card .textContainer {
+    flex: none;
   }
 }

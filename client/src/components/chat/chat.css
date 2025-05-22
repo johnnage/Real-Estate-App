@@ -1,15 +1,17 @@
 .chat {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 700px;
+  padding-bottom: 20px;
 }
 
 .chat .messages {
-  flex: 1;
+  flex: .5;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow-y: scroll;
+  gap: 1.25rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
 }
 
 .chat .messages h1 {
@@ -17,8 +19,8 @@
 }
 
 .chat .messages .message {
-  background-color: white;
-  padding: 20px;
+  background-color: #fff;
+  padding: 1.25rem;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -38,7 +40,7 @@
 }
 
 .chat .chatBox {
-  flex: 1;
+  flex: .6;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -73,7 +75,7 @@
 
 .chat .chatBox .center {
   height: 350px;
-  overflow: scroll;
+  overflow-y: auto;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -109,6 +111,7 @@
   height: 100%;
   border: none;
   padding: 20px;
+  resize: none;
 }
 
 .chat .chatBox .bottom button {

@@ -52,7 +52,7 @@ function ProfilePage() {
               <button>Create New Post</button>
             </Link>
           </div>
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<p>Loading...</p>} className="posts">
             <Await
               resolve={data.postResponse}
               errorElement={<p>Error loading posts!</p>}
